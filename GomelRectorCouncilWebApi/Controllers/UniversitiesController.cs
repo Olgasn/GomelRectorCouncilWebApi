@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using GomelRectorCouncilWebApi.Models;
+using GomelRectorCouncilWebApi.Data;
 
 namespace GomelRectorCouncilWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class UniversitiesController : Controller
     {
+        private readonly CouncilDbContext _context;
+        public UniversitiesController(CouncilDbContext context)
+        {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<University> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _context.Universities.ToList();
         }
 
         // GET api/values/5
