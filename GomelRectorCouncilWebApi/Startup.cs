@@ -30,12 +30,11 @@ namespace GomelRectorCouncilWebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<CouncilDbContext>(options =>
-            //    options.UseSqlite(Configuration.GetConnectionString("CouncilConnectionSqlite")));
+
             services.AddDbContext<CouncilDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CouncilConnectionSQL")));
+                options.UseSqlite(Configuration.GetConnectionString("CouncilConnectionSqlite")));
+            //services.AddDbContext<CouncilDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("CouncilConnectionSQL")));
             //services.AddDbContext<CouncilDbContext>(options =>
             //    options.UseMySQL(Configuration.GetConnectionString("CouncilConnectionMysql")));
 
