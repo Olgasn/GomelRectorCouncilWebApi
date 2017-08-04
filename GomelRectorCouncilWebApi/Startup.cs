@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,11 +26,13 @@ namespace GomelRectorCouncilWebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+            //Sqlite
             services.AddDbContext<CouncilDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("CouncilConnectionSqlite")));
+            //SQL Server
             //services.AddDbContext<CouncilDbContext>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("CouncilConnectionSQL")));
+            //MySQL
             //services.AddDbContext<CouncilDbContext>(options =>
             //    options.UseMySQL(Configuration.GetConnectionString("CouncilConnectionMysql")));
 
@@ -47,6 +45,9 @@ namespace GomelRectorCouncilWebApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseMvc();
             // инициализация базы данных по университетам

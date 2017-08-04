@@ -19,6 +19,7 @@ namespace GomelRectorCouncilWebApi.Controllers
 
         // GET api/values
         [HttpGet]
+        [Produces("application/json")]
         public IEnumerable<University> Get()
         {
             return _context.Universities.ToList();
