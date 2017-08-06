@@ -8,26 +8,29 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 <body>
-    <h2>Список университетов</h2>
-    <form name="universityForm">
-        <input type="hidden" name="universityId" value="0" />
-        <div class="form-group">
-            <label for="universityName">Название:</label>
-            <input class="form-control" name="universityName" />
-        </div>
-        <div class="form-group">
-            <label for="address">Адрес:</label>
-            <input class="form-control" name="address" />
-        </div>
-        <div class="panel-body">
-            <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
-            <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
-        </div>
-    </form>
-    <table class="table table-condensed table-striped table-bordered">
-        <thead><tr><th>universityId</th><th>Название</th><th>Адрес</th><th></th></tr></thead>
-        <tbody></tbody>
-    </table>
+    <div class="container">
+        <h2>Список университетов</h2>
+        <form name="universityForm">
+            <input type="hidden" name="universityId" value="0" />
+            <div class="form-group">
+                <label for="universityName">Название:</label>
+                <input class="form-control" name="universityName" />
+            </div>
+            <div class="form-group">
+                <label for="address">Адрес:</label>
+                <input class="form-control" name="address" />
+            </div>
+            <div class="panel-body">
+                <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+                <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
+            </div>
+        </form>
+        <table class="table table-condensed table-striped table-bordered">
+            <thead><tr><th>Код</th><th>Название</th><th>Адрес</th><th></th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
 
     <script>
         // Получение всех университетов
@@ -101,10 +104,10 @@
             form.elements["universityId"].value = 0;
         }
 
-        // Удаление пользователя
-        function Deleteuniversity(universityId) {
+        // Удаление университета
+        function DeleteUniversity(id) {
             $.ajax({
-                url: "api/universities/" + universityId,
+                url: "api/universities/" + id,
                 contentType: "application/json",
                 method: "DELETE",
                 success: function (university) {
@@ -116,8 +119,8 @@
         var row = function (university) {
             return "<tr data-rowid='" + university.universityId + "'><td>" + university.universityId + "</td>" +
                 "<td>" + university.universityName + "</td> <td>" + university.address + "</td>" +
-                "<td><a class='editLink' data-universityId='" + university.universityId + "'>Изменить</a> | " +
-                "<a class='removeLink' data-universityId='" + university.universityId + "'>Удалить</a></td></tr>";
+                "<td><a class='editLink' data-id='" + university.universityId + "'>Изменить</a> | " +
+                "<a class='removeLink' data-id='" + university.universityId + "'>Удалить</a></td></tr>";
         }
         // сброс значений формы
         $("#reset").click(function (e) {
@@ -133,20 +136,20 @@
             var universityName = this.elements["universityName"].value;
             var address = this.elements["address"].value;
             if (universityId == 0)
-                CreateUniversity(universityName, addres);
+                CreateUniversity(universityName, address);
             else
                 EditUniversity(universityId, universityName, address);
         });
 
         // нажимаем на ссылку Изменить
         $("body").on("click", ".editLink", function () {
-            var universityId = $(this).data("universityid");
-            GetUniversity(universityId);
+            var id = $(this).data("id");
+            GetUniversity(id);
         })
         // нажимаем на ссылку Удалить
         $("body").on("click", ".removeLink", function () {
-            var universityId = $(this).data("universityid");
-            DeleteUniversity(universityId);
+            var id = $(this).data("id");
+            DeleteUniversity(id);
         })
 
         // загрузка университетов
