@@ -25,9 +25,9 @@ namespace GomelRectorCouncilWebApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int UniversityId)
+        public IActionResult Get(int universityId)
         {
-            University university = _context.Universities.FirstOrDefault(x => x.UniversityId == UniversityId);
+            University university = _context.Universities.FirstOrDefault(x => x.UniversityId == universityId);
             if (university == null)
                 return NotFound();
             return new ObjectResult(university);
@@ -49,7 +49,7 @@ namespace GomelRectorCouncilWebApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]University university)
+        public IActionResult Put([FromBody]University university)
         {
             if (university == null)
             {

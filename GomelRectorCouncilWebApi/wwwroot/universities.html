@@ -25,7 +25,7 @@
         </div>
     </form>
     <table class="table table-condensed table-striped table-bordered">
-        <thead><tr><th>Id</th><th>Название</th><th>Адрес</th><th></th></tr></thead>
+        <thead><tr><th>universityId</th><th>Название</th><th>Адрес</th><th></th></tr></thead>
         <tbody></tbody>
     </table>
 
@@ -83,32 +83,32 @@
                 contentType: "application/json",
                 method: "PUT",
                 data: JSON.stringify({
-                    id: universityId,
+                    universityId: universityId,
                     universityName: universityName,
                     address: address
                 }),
                 success: function (university) {
                     reset();
-                    $("tr[data-rowid='" + university.id + "']").replaceWith(row(university));
+                    $("tr[data-rowid='" + university.universityId + "']").replaceWith(row(university));
                 }
             })
         }
 
         // сброс формы
         function reset() {
-            var form = document.forms["UniversityForm"];
+            var form = document.forms["universityForm"];
             form.reset();
-            form.elements["UniversityId"].value = 0;
+            form.elements["universityId"].value = 0;
         }
 
         // Удаление пользователя
         function Deleteuniversity(universityId) {
             $.ajax({
-                url: "api/universities/"+id,
+                url: "api/universities/" + universityId,
                 contentType: "application/json",
                 method: "DELETE",
                 success: function (university) {
-                    $("tr[data-rowid='" + university.id + "']").remove();
+                    $("tr[data-rowid='" + university.universityId + "']").remove();
                 }
             })
         }
@@ -129,10 +129,10 @@
         // отправка формы
         $("form").submit(function (e) {
             e.preventDefault();
-            var id = this.elements["universityId"].value;
-            var name = this.elements["universityName"].value;
-            var age = this.elements["address"].value;
-            if (id == 0)
+            var universityId = this.elements["universityId"].value;
+            var universityName = this.elements["universityName"].value;
+            var address = this.elements["address"].value;
+            if (universityId == 0)
                 CreateUniversity(universityName, addres);
             else
                 EditUniversity(universityId, universityName, address);
@@ -140,13 +140,13 @@
 
         // нажимаем на ссылку Изменить
         $("body").on("click", ".editLink", function () {
-            var id = $(this).data("id");
-            GetUniversity(id);
+            var universityId = $(this).data("universityid");
+            GetUniversity(universityId);
         })
         // нажимаем на ссылку Удалить
         $("body").on("click", ".removeLink", function () {
-            var id = $(this).data("id");
-            DeleteUniversity(id);
+            var universityId = $(this).data("universityid");
+            DeleteUniversity(universityId);
         })
 
         // загрузка университетов
