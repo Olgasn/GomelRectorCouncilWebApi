@@ -11,8 +11,8 @@ namespace GomelRectorCouncilWebApi.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Indicator> Indicators { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<Chairperson> Chairpersons { get; set; }
+        //public DbSet<Document> Documents { get; set; }
+        //public DbSet<Chairperson> Chairpersons { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }

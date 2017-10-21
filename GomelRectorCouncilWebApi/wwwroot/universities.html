@@ -25,14 +25,20 @@
                 <a id="reset" class="btn btn-sm btn-primary">Сбросить</a>
             </div>
         </form>
+        <p>
+            Этот список только лишь для демонстрации того, как загружать данные в после со списком: <select id="UniveritiesList" name="univ"></select>
+        </p>
+
         <table class="table table-condensed table-striped table-bordered">
             <thead><tr><th>Код</th><th>Название</th><th>Адрес</th><th></th></tr></thead>
             <tbody></tbody>
         </table>
     </div>
-
-
+    
     <script>
+
+
+
         // Получение всех университетов
         function GetUniversities() {
             $.ajax({
@@ -122,12 +128,31 @@
                 "<td><a class='editLink' data-id='" + university.universityId + "'>Изменить</a> | " +
                 "<a class='removeLink' data-id='" + university.universityId + "'>Удалить</a></td></tr>";
         }
+
+        // Получение списка университетов
+        function GetUniveritiesList() {
+            var listItems = "";
+            $.ajax({
+                url: '/api/universities',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (universities) {
+                    $.each(universities, function (index, university) {
+                        listItems = listItems + "<option value='" + university.universityId + "'>" + university.universityName + "</option>";
+                    });
+                    $("#UniveritiesList").html(listItems);
+                }
+            });
+        }
+
         // сброс значений формы
         $("#reset").click(function (e) {
 
             e.preventDefault();
             reset();
         })
+
+
 
         // отправка формы
         $("form").submit(function (e) {
@@ -151,10 +176,9 @@
             var id = $(this).data("id");
             DeleteUniversity(id);
         })
-
         // загрузка университетов
         GetUniversities();
-
+        GetUniveritiesList()
     </script>
 </body>
 </html>
